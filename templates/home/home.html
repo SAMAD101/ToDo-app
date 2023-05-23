@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}ToDo list{% endblock title %}
+
+{% block body %}
+<h2 class="text-center py-3">ToDo list</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Action</th>
+        <th scope="col">Task</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date of creation</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      {% if not task.status %}
+      <tr>
+        <td>
+          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Update
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <form method="post" action="{% url 'delete_task' task.id %}">
+                    {% csrf_token %}
+                    <button class="dropdown-item" type="submit">Delete</a>
+                  </form>
+                </li>
+                <li>
+                  <form method="post" action="{% url 'mark_complete' task.id %}">
+                    {% csrf_token %}
+                    <button class="dropdown-item" type="submit">Mark Complete</a>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </td>
+        <td>{{ task.task_title }}</td>
+        <td>{{ task.task_desc }}</td>
+        <td>{{ task.time }}</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock body %}

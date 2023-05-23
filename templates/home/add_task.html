@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+
+{% if success %}
+<div class="alert alert-success" role="alert">
+  Task added successfully!
+</div> 
+{% endif %}
+
+<div class="container my-3">
+  <h2 class="text-center">Add a task</h2>
+  <form action="" method="post" class="form-inline my-2 my-lg-0">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="task" class="form-label">Task</label>
+      <input type="text" class="form-control" id="task" name="task">
+    <div class="mb-3">
+      <label for="description" class="form-label">Task description</label>
+      <textarea class="form-control" id="desc" name="desc" rows="5"></textarea>  
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="completed" name="completed">
+      <label class="form-check-label" for="exampleCheck1">Completed</label>
+    </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% endblock body %}
